@@ -3,7 +3,7 @@
 
 This repo contains the source for my site. I've adapted the template of [Start Bootstrap's](http://startbootstrap.com/) [Grayscale](http://startbootstrap.com/template-overviews/grayscale/) because I'm a lazy piece of shit.
 
-Automatically deployed to my web server via [https://ftploy.com/](https://ftploy.com/dashboard).
+Automatically deployed to my web server via Github Pages.
 
 ## Bugs and Issues
 
