@@ -53,6 +53,16 @@
         }
         </script>
 
+    <!-- Random titleizer -->
+
+    <script language="JavaScript">
+        function randomTagline() {
+		var tag = "";
+		tag = "a product guy";
+		document.write(tag);
+	}
+        </script>
+
 
     <!-- GA -->
 	<script>
@@ -115,7 +125,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-			<p class="intro-text gray">a product guy</p>
+			    <p class="intro-text gray"><script>this.randomTagline();</script></p>
                         <h1 class="brand-heading"><span class="light">Frank</span> Caron</h1>
                         <a href="#about" class="btn btn-circle page-scroll">
                             <i class="fa fa-angle-double-down animated"></i>
