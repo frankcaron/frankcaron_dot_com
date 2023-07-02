@@ -6797,3 +6797,7 @@ header {
       }
 
 */
+
+article.container > header, article.container > section.p-summary {
+  display: none;
+}
