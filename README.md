@@ -11,8 +11,6 @@ Have a bug or an issue with this template? Open an issue against the repo and I'
 
 ## Creator
 
-This was adapted by me. You can reach me on Twitter here:
-
-* https://twitter.com/frankycaron
+This was adapted by me. You can reach me <a href="mailto:frank@frankcaron.com">via email</a>.
 
 Start Bootstrap is based on the [Bootstrap](http://getbootstrap.com/) framework created by [Mark Otto](https://twitter.com/mdo) and [Jacob Thorton](https://twitter.com/fat).
