@@ -6801,3 +6801,8 @@ header {
 article.container > header, article.container > section.p-summary {
   display: none;
 }
+article.container > footer {
+  padding: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
