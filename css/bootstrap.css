@@ -6799,3 +6799,8 @@ header {
       }
 
 */
+
+figure.graf, figure.graf--figure {
+  text-align: center;
+  padding: 20px;
+}
