@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Making Your Xbox One Controller Work on Win 10</title>
+    <style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field="subtitle"],
+      section[data-field="description"] {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">Making Your Xbox One Controller Work on Win 10</h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        I used to post this kind of stuff on my personal blog, but now that I
+        don’t have one, and I don’t really have any more appropriate venue…
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="c50f"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="ec28"
+                id="ec28"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                Making Your Xbox One Controller Work on Win 10
+              </h3>
+              <p name="9f66" id="9f66" class="graf graf--p graf-after--h3">
+                I used to post this kind of stuff on my personal blog, but now
+                that I don’t have one, and I don’t really have any more
+                appropriate venue than this, I’ll simply slap this here.
+              </p>
+              <p name="7e61" id="7e61" class="graf graf--p graf-after--p">
+                If you’re like me, and you’re gaming with an Xbox One controller
+                on a Win 10 machine (e.g., an HTPC), you may have noticed that
+                some games on Steam and elsewhere simply do not work well: the
+                controls are non-functional or, in some cases, the game seems to
+                play itself.
+              </p>
+              <p name="b0de" id="b0de" class="graf graf--p graf-after--p">
+                If you’re having these issues, here’s a really quick fix.
+              </p>
+            </div>
+            <div class="section-inner sectionLayout--fullWidth">
+              <figure
+                name="2440"
+                id="2440"
+                class="graf graf--figure graf--layoutFillWidth graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*ycERtNekt5GeLxB0tCWyug.png"
+                  data-width="1920"
+                  data-height="1080"
+                  src="https://cdn-images-1.medium.com/max/2560/1*ycERtNekt5GeLxB0tCWyug.png"
+                />
+                <figcaption class="imageCaption">
+                  Thanks
+                  <a
+                    href="http://steamcommunity.com/profiles/76561197980935742"
+                    data-href="http://steamcommunity.com/profiles/76561197980935742"
+                    class="markup--anchor markup--figure-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >SamFinn</a
+                  >!
+                </figcaption>
+              </figure>
+            </div>
+            <div class="section-inner sectionLayout--insetColumn">
+              <p name="eace" id="eace" class="graf graf--p graf-after--figure">
+                With the controller plugged in, go to your Device Manager.
+              </p>
+              <p name="efc2" id="efc2" class="graf graf--p graf-after--p">
+                At the end of the categories list, you’ll see “Xbox
+                Peripherals”. Expand the category and you’ll see your “Xbox
+                Controller”. Right-click this item and click “Update Driver
+                Software”, then “Browser for a driver”, and finally “Pick from a
+                list of drivers on my computer”.
+              </p>
+              <p name="a595" id="a595" class="graf graf--p graf-after--p">
+                You should see four listed:
+              </p>
+              <ul class="postList">
+                <li name="0f15" id="0f15" class="graf graf--li graf-after--p">
+                  Microsoft Xbox One Controller
+                </li>
+                <li name="5813" id="5813" class="graf graf--li graf-after--li">
+                  Xbox Controller
+                </li>
+                <li name="e1ba" id="e1ba" class="graf graf--li graf-after--li">
+                  Xbox Gaming Device Version 10.x
+                </li>
+                <li name="18af" id="18af" class="graf graf--li graf-after--li">
+                  Xbox Gaming Device Version 6.2.x
+                </li>
+              </ul>
+              <p name="6695" id="6695" class="graf graf--p graf-after--li">
+                Select “Microsoft Xbox One Controller”, hit “Next”, and you’re
+                all set.
+              </p>
+              <p
+                name="8e61"
+                id="8e61"
+                class="graf graf--p graf-after--p graf--trailing"
+              >
+                Not really sure why Microsoft didn’t make that the default on
+                Win 10 upon connecting an Xbox One controller, and it’ll
+                probably be fixed when they launch
+                <a
+                  href="http://www.engadget.com/2015/06/09/xbox-one-wireless-adapter-for-pc/"
+                  data-href="http://www.engadget.com/2015/06/09/xbox-one-wireless-adapter-for-pc/"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >the official wireless Xbone adapter</a
+                >, but here we are.
+              </p>
+            </div>
+          </div>
+        </section>
+      </section>
+      <footer>
+        <p>
+          By
+          <a href="https://medium.com/@frankycaron" class="p-author h-card"
+            >Frank Caron</a
+          >
+          on
+          <a href="https://medium.com/p/f74e47a51dad"
+            ><time class="dt-published" datetime="2015-08-14T11:27:22.514Z"
+              >August 14, 2015</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@frankycaron/making-your-xbox-one-controller-work-on-win-10-f74e47a51dad"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on July 2, 2023.
+        </p>
+      </footer>
+    </article>
+  </body>
+</html>

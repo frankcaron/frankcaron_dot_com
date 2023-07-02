@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>
+      Predictive Underwriting With Salesforce Private Connect &amp; Flows, AWS
+      SageMaker, and LightGBM
+    </title>
+    <style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field="subtitle"],
+      section[data-field="description"] {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">
+          Predictive Underwriting With Salesforce Private Connect &amp; Flows,
+          AWS SageMaker, and LightGBM
+        </h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        Hi there! Frank here. Super hyped to share our first full engineering
+        deep dive. For more context on this blog, see our inaugural “Hello…
+      </section>
+      <section data-field="body" class="e-content">
+        <section name="604b" class="section section--body section--first">
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="511e"
+                id="511e"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                Predictive Underwriting With Salesforce Private Connect &amp;
+                Flows, AWS SageMaker, and LightGBM
+              </h3>
+              <p name="a0e4" id="a0e4" class="graf graf--p graf-after--h3">
+                <em class="markup--em markup--p-em">Hi there! </em
+                ><a
+                  href="https://medium.com/u/b9c0d0feb747"
+                  data-href="https://medium.com/u/b9c0d0feb747"
+                  data-anchor-type="2"
+                  data-user-id="b9c0d0feb747"
+                  data-action-value="b9c0d0feb747"
+                  data-action="show-user-card"
+                  data-action-type="hover"
+                  class="markup--user markup--p-user"
+                  target="_blank"
+                  ><em class="markup--em markup--p-em">Frank</em></a
+                ><em class="markup--em markup--p-em">
+                  here. Super hyped to share our first full engineering deep
+                  dive. For more context on this blog, see </em
+                ><a
+                  href="https://medium.com/reach-financial-engineering-blog/hello-world-2dde9e1eec94"
+                  data-href="https://medium.com/reach-financial-engineering-blog/hello-world-2dde9e1eec94"
+                  class="markup--anchor markup--p-anchor"
+                  target="_blank"
+                  ><em class="markup--em markup--p-em"
+                    >our inaugural “Hello, World”</em
+                  ></a
+                ><em class="markup--em markup--p-em"> post.</em>
+              </p>
+              <p name="60e1" id="60e1" class="graf graf--p graf-after--p">
+                Debt is a difficult subject for many, and that’s a big part of
+                why Reach Financial is working hard to help millions of
+                Americans.
+              </p>
+              <p name="2b3a" id="2b3a" class="graf graf--p graf-after--p">
+                How do we do that? We use intelligent tools to better identify
+                the right amounts of capital to give to the right people at the
+                right rates, taking into account thousands of different factors.
+              </p>
+              <p name="569e" id="569e" class="graf graf--p graf-after--p">
+                A part of that toolkit is machine learning. Our team has
+                developed a unique, flexible, and fast predictive model that
+                qualifies and prices an offer for a particular borrower based on
+                their unique needs. This is a critical lynchpin of our real-time
+                underwriting process.
+              </p>
+              <h3 name="4886" id="4886" class="graf graf--h3 graf-after--p">
+                Tech Context
+              </h3>
+              <p name="635b" id="635b" class="graf graf--p graf-after--h3">
+                To date, we’ve delivered this functionality on top of Salesforce
+                using
+                <a
+                  href="https://help.salesforce.com/s/articleView?id=sf.bi_edd_prediction_apex.htm&amp;type=5"
+                  data-href="https://help.salesforce.com/s/articleView?id=sf.bi_edd_prediction_apex.htm&amp;type=5"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >Salesforce Einstein Discovery</a
+                >.
+              </p>
+              <p name="b248" id="b248" class="graf graf--p graf-after--p">
+                Our Risk team uses
+                <a
+                  href="https://docs.aws.amazon.com/sagemaker/latest/dg/nbi.html"
+                  data-href="https://docs.aws.amazon.com/sagemaker/latest/dg/nbi.html"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >AWS SageMaker notebooks</a
+                >
+                to build and train our models, and we’ve been importing those
+                models into Einstein Discovery using the “Bring Your Own Model”
+                feature. These models are then used for predictions in our
+                underwriting engine, which we’ve woven into the borrower
+                application process using Salesforce
+                <a
+                  href="https://trailhead.salesforce.com/content/learn/modules/flow-builder/flow-builder-screens"
+                  data-href="https://trailhead.salesforce.com/content/learn/modules/flow-builder/flow-builder-screens"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >Screen Flows</a
+                >
+                that serve custom-designed
+                <a
+                  href="https://developer.salesforce.com/docs/component-library/documentation/en/lwc"
+                  data-href="https://developer.salesforce.com/docs/component-library/documentation/en/lwc"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >Lightning Web Components</a
+                >
+                directly on our public website via
+                <a
+                  href="https://developer.salesforce.com/docs/component-library/documentation/en/lwc/lightning_out"
+                  data-href="https://developer.salesforce.com/docs/component-library/documentation/en/lwc/lightning_out"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >Lightning Out</a
+                >, powered behind the scenes by a blend of
+                <a
+                  href="https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_intro_what_is_apex.htm"
+                  data-href="https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_intro_what_is_apex.htm"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >Apex</a
+                >,
+                <a
+                  href="https://developer.salesforce.com/docs/platform/functions/overview"
+                  data-href="https://developer.salesforce.com/docs/platform/functions/overview"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >Functions</a
+                >, and
+                <a
+                  href="https://developer.salesforce.com/docs/atlas.en-us.platform_events.meta/platform_events/platform_events_intro.htm"
+                  data-href="https://developer.salesforce.com/docs/atlas.en-us.platform_events.meta/platform_events/platform_events_intro.htm"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >Platform Event</a
+                >
+                orchestration.
+              </p>
+              <p name="3f61" id="3f61" class="graf graf--p graf-after--p">
+                However, as we’ve further refined our modeling techniques, and
+                as our company continues to scale, we’ve reached a point where
+                we need both more control and more power — particularly as our
+                portfolio of financial products expands. We also built our new
+                models with the
+                <a
+                  href="https://lightgbm.readthedocs.io/en/v3.3.2/"
+                  data-href="https://lightgbm.readthedocs.io/en/v3.3.2/"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >LightGBM</a
+                >
+                framework, which Einstein Discovery
+                <a
+                  href="https://help.salesforce.com/s/articleView?id=sf.bi_edd_model_upload_prepare_setup.htm&amp;type=5"
+                  data-href="https://help.salesforce.com/s/articleView?id=sf.bi_edd_model_upload_prepare_setup.htm&amp;type=5"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >sadly does not (yet?) support</a
+                >.
+              </p>
+              <p name="f77e" id="f77e" class="graf graf--p graf-after--p">
+                That’s why we’ve now turned to
+                <a
+                  href="https://docs.aws.amazon.com/sagemaker/latest/dg/realtime-endpoints.html"
+                  data-href="https://docs.aws.amazon.com/sagemaker/latest/dg/realtime-endpoints.html"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >AWS SageMaker’s Real-Time Inference</a
+                >, a powerful service that allows us to combine our AWS-backed
+                model definition and training process with a set of real-time
+                prediction APIs to generate predictions on the fly with a simple
+                HTTP(S) callout.
+              </p>
+              <p name="177f" id="177f" class="graf graf--p graf-after--p">
+                While this solves for scale, though, we need to ensure we don’t
+                lose any speed in the process, and that’s why we’re pairing that
+                native AWS service with the maturing Salesforce
+                <a
+                  href="https://help.salesforce.com/s/articleView?id=sf.private_connect_overview.htm&amp;language=en_US&amp;type=5"
+                  data-href="https://help.salesforce.com/s/articleView?id=sf.private_connect_overview.htm&amp;language=en_US&amp;type=5"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >Private Connect</a
+                >.
+              </p>
+              <p name="582f" id="582f" class="graf graf--p graf-after--p">
+                Private Connect allows Salesforce and AWS customers to bridge
+                the two infrastructures using AWS PrivateLink, which not only
+                protects this sensitive data from intrusion or leakage but also
+                provides significant throughput improvements. How? All traffic
+                between the two platforms goes through a direct, private
+                tunnel — not over the public internet.
+              </p>
+              <p name="cf9a" id="cf9a" class="graf graf--p graf-after--p">
+                This approach represents the dawn of a whole new era for both
+                Salesforce and AWS as they look to play to each other’s
+                strengths while giving organizations like ours the ability to
+                take low-level full control of the important IaaS tooling our
+                mission-critical secret sauce needs while not losing sight of
+                the agility and simplicity offered by the Salesforce SaaS and
+                PaaS tools for the employee-facing user interfaces, process
+                orchestration, and digital engagement.
+              </p>
+              <p name="d7d4" id="d7d4" class="graf graf--p graf-after--p">
+                Let’s dig into how we got this up, running, and delivering a 3x
+                improvement to speed alongside a 100x (?!) improvement to
+                scalability.
+              </p>
+              <h3 name="4791" id="4791" class="graf graf--h3 graf-after--p">
+                Overall Architecture
+              </h3>
+              <p name="3a25" id="3a25" class="graf graf--p graf-after--h3">
+                The overall, simplified systems architecture follows:
+              </p>
+              <figure
+                name="4b41"
+                id="4b41"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*kUnSRrdnfGHoAsLoLRhBIQ.png"
+                  data-width="1350"
+                  data-height="489"
+                  data-is-featured="true"
+                  src="https://cdn-images-1.medium.com/max/800/1*kUnSRrdnfGHoAsLoLRhBIQ.png"
+                />
+                <figcaption class="imageCaption">
+                  A simplified systems architecture view of the cross-platform
+                  integration
+                </figcaption>
+              </figure>
+              <p name="0b8b" id="0b8b" class="graf graf--p graf-after--figure">
+                In our current architecture, we use a series of Salesforce Flows
+                to orchestrate the decision logic when someone applies for a
+                loan.
+              </p>
+              <p name="b6f8" id="b6f8" class="graf graf--p graf-after--p">
+                Our App Scoring Flows makes a callout to Einstein Discovery
+                using
+                <a
+                  href="https://developer.salesforce.com/docs/atlas.en-us.240.0.bi_dev_guide_rest_sdd.meta/bi_dev_guide_rest_sdd/bi_rest_sdd_overview.htm"
+                  data-href="https://developer.salesforce.com/docs/atlas.en-us.240.0.bi_dev_guide_rest_sdd.meta/bi_dev_guide_rest_sdd/bi_rest_sdd_overview.htm"
+                  class="markup--anchor markup--p-anchor"
+                  title="https://developer.salesforce.com/docs/atlas.en-us.240.0.bi_dev_guide_rest_sdd.meta/bi_dev_guide_rest_sdd/bi_rest_sdd_overview.htm"
+                  rel="noopener"
+                  target="_blank"
+                  >its unique API</a
+                >. Today, the performance of this model is about ~300-500ms,
+                depending on the complexity of the prediction.
+              </p>
+              <p name="49bd" id="49bd" class="graf graf--p graf-after--p">
+                In the new architecture, pictured above, we’ll be moving from
+                calling the Einstein Discovery API to calling our to a SageMaker
+                Real-Time Inference endpoint. Normally, this would be a simple
+                matter of standing up an AWS API Gateway endpoint that routes to
+                the SageMaker Real-Time endpoint, passing along data from
+                Salesforce in the body of the request to SageMaker. That
+                endpoint is tied to a SageMaker model, which is backed by both a
+                Model Image (in AWS ECR) and supporting Model Artifact data (in
+                AWS S3).
+              </p>
+              <p name="f6f5" id="f6f5" class="graf graf--p graf-after--p">
+                We then extended our Scoring flows to then accommodate the new
+                SageMaker service:
+              </p>
+              <figure
+                name="56e2"
+                id="56e2"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*plkqK447cuVjX_92ewjqHA.png"
+                  data-width="1906"
+                  data-height="999"
+                  src="https://cdn-images-1.medium.com/max/800/1*plkqK447cuVjX_92ewjqHA.png"
+                />
+                <figcaption class="imageCaption">
+                  Our Scoring Flows provide us with the ability to route
+                  predictions neatly to the new SageMaker infrastructure
+                </figcaption>
+              </figure>
+              <p name="9a88" id="9a88" class="graf graf--p graf-after--figure">
+                However, our use case introduces three additional complexities:
+              </p>
+              <ul class="postList">
+                <li name="2650" id="2650" class="graf graf--li graf-after--p">
+                  We need to be able to do so with Salesforce Private Connect,
+                  which requires an AWS VPC Endpoint Service to secure the
+                  direct connection.
+                </li>
+                <li name="341c" id="341c" class="graf graf--li graf-after--li">
+                  We need to be able to parse the input from Salesforce and
+                  transform it before passing it onto SageMaker, as there is
+                  some additional business rules complexity that we don’t want
+                  to expose either Salesforce or SageMaker to (in order to keep
+                  their implementations simple)
+                </li>
+                <li name="1bbc" id="1bbc" class="graf graf--li graf-after--li">
+                  We want our Risk team to be able to swap out models and use
+                  multiple models quickly — without a Salesforce-side release.
+                </li>
+              </ul>
+              <p name="7021" id="7021" class="graf graf--p graf-after--li">
+                To accommodate these requirements, we used some key AWS
+                services:
+              </p>
+              <ul class="postList">
+                <li name="f2db" id="f2db" class="graf graf--li graf-after--p">
+                  We introduced a VPC, VPC Endpoint, and Load Balancers with
+                  Target Groups to route traffic securely between Salesforce and
+                  SageMaker
+                </li>
+                <li name="2a97" id="2a97" class="graf graf--li graf-after--li">
+                  We added a Lambda layer as a brokerage for the data
+                  transformation and handling between Salesforce and SageMaker
+                </li>
+                <li name="86a6" id="86a6" class="graf graf--li graf-after--li">
+                  We used AWS Organizations and Account Resource Sharing to
+                  share an ECR repository and S3 bucket between the two teams,
+                  which is required as the foundational artifacts that define
+                  the SageMaker Inference Model
+                </li>
+              </ul>
+              <h3 name="46d9" id="46d9" class="graf graf--h3 graf-after--li">
+                AWS Setup
+              </h3>
+              <p name="6e3b" id="6e3b" class="graf graf--p graf-after--h3">
+                Our AWS setup has been built out entirely with
+                infrastructure-as-code — for the POC with AWS CloudFormation, a
+                tool that AWS provides for IaC for free. Our formation ended up
+                looking similar to this:
+              </p>
+              <figure
+                name="a9f7"
+                id="a9f7"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*2pdvEvavn0rNqVWcq1xVhg.png"
+                  data-width="892"
+                  data-height="681"
+                  src="https://cdn-images-1.medium.com/max/800/1*2pdvEvavn0rNqVWcq1xVhg.png"
+                />
+                <figcaption class="imageCaption">
+                  POC CloudFormation Config To Support PrivateLink and SageMaker
+                  Real-Time Inference
+                </figcaption>
+              </figure>
+              <p name="1eb9" id="1eb9" class="graf graf--p graf-after--figure">
+                <em class="markup--em markup--p-em"
+                  >(Note: we later moved the IaC over to </em
+                ><a
+                  href="https://www.terraform.io/"
+                  data-href="https://www.terraform.io/"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  ><em class="markup--em markup--p-em">Terraform</em></a
+                ><em class="markup--em markup--p-em">
+                  to take advantage of some of its unique features, but the key
+                  benefits are similar.)</em
+                >
+              </p>
+              <p name="3be1" id="3be1" class="graf graf--p graf-after--p">
+                For those reading this from the Salesforce side who don’t have
+                experience with AWS or Infrastructure-As-Code (IaC), all of the
+                configuration in AWS is stored as metadata that can be source
+                controlled — very similar in concept to
+                <a
+                  href="https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_intro.htm"
+                  data-href="https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_intro.htm"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >how Salesforce stores config and customization metadata</a
+                >.
+              </p>
+              <p name="fc56" id="fc56" class="graf graf--p graf-after--p">
+                We use this CloudFormation metadata to be able to easily deploy,
+                and iterate on, infrastructure configuration systematically to
+                eliminate fat-fingering of the config and to allow us to treat
+                our infrastructure as code, complete with an automated CI/CD
+                process.
+              </p>
+              <p name="2481" id="2481" class="graf graf--p graf-after--p">
+                Here we can see all the components for this architecture at play
+                in the CloudFormation deployment tool, which creates “<a
+                  href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacks.html"
+                  data-href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacks.html"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >stacks</a
+                >” of AWS config that are notionally similar to
+                <a
+                  href="https://developer.salesforce.com/docs/atlas.en-us.234.0.packagingGuide.meta/packagingGuide/packaging_about_packages.htm"
+                  data-href="https://developer.salesforce.com/docs/atlas.en-us.234.0.packagingGuide.meta/packagingGuide/packaging_about_packages.htm"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >metadata packages</a
+                >
+                in Salesforce:
+              </p>
+              <figure
+                name="b526"
+                id="b526"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*8xvqGio9mRGFvnWZkJ7Vcg.png"
+                  data-width="880"
+                  data-height="869"
+                  src="https://cdn-images-1.medium.com/max/800/1*8xvqGio9mRGFvnWZkJ7Vcg.png"
+                />
+              </figure>
+              <p name="a2ea" id="a2ea" class="graf graf--p graf-after--figure">
+                Our infrastructure consists of the following:
+              </p>
+              <ul class="postList">
+                <li name="3860" id="3860" class="graf graf--li graf-after--p">
+                  A VPC, or virtual private cloud, that creates a safe container
+                  for private internet traffic
+                </li>
+                <li name="b945" id="b945" class="graf graf--li graf-after--li">
+                  A VPC Endpoint Service, for creating the bridge with
+                  Salesforce
+                </li>
+                <li name="731b" id="731b" class="graf graf--li graf-after--li">
+                  A network load balancer, with a listener to funnel traffic
+                  from the endpoint service to a target group of…
+                </li>
+                <li name="0dc1" id="0dc1" class="graf graf--li graf-after--li">
+                  An application load balancer (paired with a Security Group),
+                  that listens for the TCP/IP traffic from the network balancer
+                  and translates it into HTTP traffic that then sends it along
+                  to…
+                </li>
+                <li name="62ae" id="62ae" class="graf graf--li graf-after--li">
+                  A Lambda function with logging enabled, that parses the HTTP
+                  request, transforms it, and sends it along to…
+                </li>
+                <li name="3677" id="3677" class="graf graf--li graf-after--li">
+                  A SageMaker endpoint to receive the request and make the
+                  prediction. This endpoint relies on…
+                </li>
+                <li name="d75d" id="d75d" class="graf graf--li graf-after--li">
+                  A SageMaker Endpoint Config, which points to…
+                </li>
+                <li name="baf2" id="baf2" class="graf graf--li graf-after--li">
+                  A SageMaker Model, that itself points to an S3 bucket and an
+                  ECR registry for the multi-model structure of information it
+                  uses.
+                </li>
+              </ul>
+              <p name="b5ff" id="b5ff" class="graf graf--p graf-after--li">
+                All of these pieces come together to make the end-to-end private
+                prediction service work.
+              </p>
+              <p name="e449" id="e449" class="graf graf--p graf-after--p">
+                The Lambda function is able to use third-party code libraries
+                without restriction, including some from AWS directly, to do
+                some really powerful stuff. For example, when calling SageMaker
+                from Lambda, we can use the the
+                <code class="markup--code markup--p-code">boto3</code> library
+                very easily:
+              </p>
+              <pre
+                data-code-block-mode="1"
+                spellcheck="false"
+                data-code-block-lang="python"
+                name="8095"
+                id="8095"
+                class="graf graf--pre graf-after--p graf--preV2"
+              ><span class="pre--content"><span class="hljs-keyword">import</span> os<br /><span class="hljs-keyword">import</span> boto3<br /><span class="hljs-keyword">import</span> json<br /><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br /><br />ENDPOINT_NAME = <span class="hljs-string">&#x27;&lt;scrubbed&gt;&#x27;</span><br />TARGET_MODEL = <span class="hljs-string">&#x27;&lt;scrubbed&gt;&#x27;</span><br />runtime = boto3.client(<span class="hljs-string">&#x27;runtime.sagemaker&#x27;</span>)<br /><br /><span class="hljs-keyword">def</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params">event, context</span>):<br /> <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Event: &quot;</span> + json.dumps(event, indent=<span class="hljs-number">2</span>))<br /> <br /> data = json.loads(json.dumps(event))<br /> requestBody = json.loads(data[<span class="hljs-string">&#x27;body&#x27;</span>])<br /> <br /> <span class="hljs-built_in">print</span>(requestBody)<br /> <br /> payload = np.array(requestBody[<span class="hljs-string">&#x27;input_attributes&#x27;</span>]).tobytes()<br /><br /> <span class="hljs-comment">#The call is here</span><br /> response = runtime.invoke_endpoint(EndpointName=ENDPOINT_NAME, TargetModel=TARGET_MODEL, ContentType=<span class="hljs-string">&#x27;application/byte&#x27;</span>, Body=payload)<br /><br /> <span class="hljs-built_in">print</span>(response)<br /> result = <span class="hljs-string">&#x27;{ &quot;isBase64Encoded&quot;: false, &quot;statusCode&quot;: 200, &quot;headers&quot;: { &quot;content-type&quot;: &quot;application/json&quot; }, &quot;body&quot;: &quot;&#x27;</span> + response[<span class="hljs-string">&#x27;Body&#x27;</span>].read().decode() + <span class="hljs-string">&#x27;&quot; }&#x27;</span><br /> <br /> <span class="hljs-keyword">return</span> json.loads(result)</span></pre>
+              <p name="cd85" id="cd85" class="graf graf--p graf-after--pre">
+                Ultimately, as we moved beyond the POC phase, we decided to swap
+                out this rudimentary Python for some more structured and
+                scalable Node, to both improve observability and gracefully
+                handle error scenarios as well as some additional app logic to
+                call different SageMaker endpoints based on the context of the
+                prediction request.
+              </p>
+              <h3 name="8090" id="8090" class="graf graf--h3 graf-after--p">
+                Salesforce Setup
+              </h3>
+              <p name="9638" id="9638" class="graf graf--p graf-after--h3">
+                On the Salesforce side, we use two main things to communicate
+                with the AWS infrastructure:
+              </p>
+              <ul class="postList">
+                <li name="d930" id="d930" class="graf graf--li graf-after--p">
+                  A Private Connect Outbound Connection, which is tied to the
+                  VPC Endpoint Service in AWS
+                </li>
+                <li name="12ba" id="12ba" class="graf graf--li graf-after--li">
+                  A (Legacy) Named Credential, which is tied to the specific
+                  endpoint of the network load balancer and to the Private
+                  Connect configuration
+                </li>
+              </ul>
+              <p name="5063" id="5063" class="graf graf--p graf-after--li">
+                With those two resources set up, we can easily invoke the
+                machine learning model just by doing a normal callout via named
+                credentials:
+              </p>
+              <pre
+                data-code-block-mode="1"
+                spellcheck="false"
+                data-code-block-lang="java"
+                name="2802"
+                id="2802"
+                class="graf graf--pre graf-after--p graf--preV2"
+              ><span class="pre--content"><span class="hljs-comment">// Instantiate a new HTTP request</span><br /><span class="hljs-type">HttpRequest</span> <span class="hljs-variable">req</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HttpRequest</span>();<br />req.setEndpoint(<span class="hljs-string">&#x27;callout:AWSDirectConnectionDev&#x27;</span>);<br />req.setMethod(<span class="hljs-string">&#x27;POST&#x27;</span>);<br />req.setBody(jsonString);<br />req.setHeader(<span class="hljs-string">&#x27;Content-Type&#x27;</span>, <span class="hljs-string">&#x27;application/json&#x27;</span>);</span></pre>
+              <h3 name="2b81" id="2b81" class="graf graf--h3 graf-after--pre">
+                Bringing It Together
+              </h3>
+              <p name="6fee" id="6fee" class="graf graf--p graf-after--h3">
+                With the two services connected, we can now see callouts with
+                incredible speeds, down to just ~60ms at a p80 case:
+              </p>
+              <figure
+                name="bd93"
+                id="bd93"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*1ka2p6ZzB86_0laU25mLjw.png"
+                  data-width="668"
+                  data-height="268"
+                  src="https://cdn-images-1.medium.com/max/800/1*1ka2p6ZzB86_0laU25mLjw.png"
+                />
+              </figure>
+              <p name="abdc" id="abdc" class="graf graf--p graf-after--figure">
+                From here, we will be able to adjust our Salesforce Flow to make
+                the call out and, going forward, continue to use this pattern
+                for other use cases.
+              </p>
+              <h3 name="b93c" id="b93c" class="graf graf--h3 graf-after--p">
+                Considerations
+              </h3>
+              <p name="33b0" id="33b0" class="graf graf--p graf-after--h3">
+                While the performance gains and the security improvements are
+                significant, there are some key considerations:
+              </p>
+              <ul class="postList">
+                <li name="e8d7" id="e8d7" class="graf graf--li graf-after--p">
+                  The increase in control comes at the cost of complexity, as
+                  now we need to maintain the AWS infrastructure (the stacks and
+                  CloudFormation streamline this substantially) and the Lambda
+                  code (which includes substantially improved tools to help with
+                  both performance and monitoring / testing / observability).
+                </li>
+                <li name="54bf" id="54bf" class="graf graf--li graf-after--li">
+                  Releases that affect this functionality will need to take into
+                  account the dependencies between the two. Keeping the
+                  Salesforce side as simple and “dumb” as possible is the
+                  key — as much app logic and “what to call when” decisioning
+                  that can be moved to AWS helps limit tight coupling.
+                </li>
+                <li name="e6d6" id="e6d6" class="graf graf--li graf-after--li">
+                  There are also nuances with product support on both sides
+                  right now, including
+                  <a
+                    href="https://help.salesforce.com/s/articleView?id=sf.private_connect_considerations.htm&amp;language=en_US&amp;type=5"
+                    data-href="https://help.salesforce.com/s/articleView?id=sf.private_connect_considerations.htm&amp;language=en_US&amp;type=5"
+                    class="markup--anchor markup--li-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >the limited selection of AWS regions supported by
+                    Salesforce Private Connect</a
+                  >, which may result in less-than-ideal regionalization of your
+                  AWS services, impacting both performance and ops.
+                </li>
+              </ul>
+              <h3 name="0ce4" id="0ce4" class="graf graf--h3 graf-after--li">
+                Analysis
+              </h3>
+              <p name="1ba1" id="1ba1" class="graf graf--p graf-after--h3">
+                Of course, no good system is complete without observability
+                (o11y) baked in. Just as your car needs gauges and a check
+                engine light to ensure you as the driver know when something is
+                wrong, so too does our system.
+              </p>
+              <p name="f285" id="f285" class="graf graf--p graf-after--p">
+                In this case, because we’re building a cross-system integration,
+                we need visibility on both the Salesforce and AWS side. To solve
+                for this, we’ve combined Salesforce-side custom logging, with
+                our unique API Log infrastructure, with the more
+                industry-standard logging practices and monitoring tooling of
+                Datadog for our AWS side.
+              </p>
+              <p name="89de" id="89de" class="graf graf--p graf-after--p">
+                Within Salesforce, we can easily monitor outbound calls to
+                SageMaker and correlate those calls to specific applications in
+                our system. This allows even our internal business users to
+                trace back any given application, and the decisioning tied to
+                it, right to the output of our machine-learning models.
+              </p>
+              <figure
+                name="31eb"
+                id="31eb"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*AdxsibOlfrk7bbiktdpNJQ.png"
+                  data-width="1312"
+                  data-height="913"
+                  src="https://cdn-images-1.medium.com/max/800/1*AdxsibOlfrk7bbiktdpNJQ.png"
+                />
+              </figure>
+              <p name="8440" id="8440" class="graf graf--p graf-after--figure">
+                On the Datadog side, we can monitor the performance of the
+                underlying infrastructure, measuring things like how long it
+                took to respond and how much overhead there was in the transit
+                of information over the internet:
+              </p>
+              <figure
+                name="63c4"
+                id="63c4"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*oa0EV6ArFqQEiFlbQTaVCQ.png"
+                  data-width="1350"
+                  data-height="719"
+                  src="https://cdn-images-1.medium.com/max/800/1*oa0EV6ArFqQEiFlbQTaVCQ.png"
+                />
+              </figure>
+              <p name="0604" id="0604" class="graf graf--p graf-after--figure">
+                Combined, these two views give us everything we need to see how
+                fast the car is going, whether it needs fuel, or whether it’s
+                time for a check up.
+              </p>
+              <p name="f066" id="f066" class="graf graf--p graf-after--p">
+                This level of o11y allowed us to identify cold start scenarios
+                we could improve on, validate we’d provisioned correctly for
+                real-world observed concurrency, and enable further tuning
+                towards our target p95 response times.
+              </p>
+              <h3 name="968d" id="968d" class="graf graf--h3 graf-after--p">
+                The Road Ahead
+              </h3>
+              <p name="5c1f" id="5c1f" class="graf graf--p graf-after--h3">
+                All told, this is a super awesome demonstration of our Risk,
+                Product, and Engineering teams collaborating to bring the best
+                of both worlds and both tool sets together.
+              </p>
+              <p name="93cb" id="93cb" class="graf graf--p graf-after--p">
+                While all that prose should give you a good idea of how we’ve
+                approached this architecture, nothing says it better than a
+                video demo. Here’s a peek behind the curtain on how our POC was
+                built:
+              </p>
+              <figure
+                name="3a29"
+                id="3a29"
+                class="graf graf--figure graf--iframe graf-after--p"
+              >
+                <iframe
+                  src="https://www.youtube.com/embed/q-rgXLpSXAM?start=11&amp;feature=oembed"
+                  width="700"
+                  height="393"
+                  frameborder="0"
+                  scrolling="no"
+                ></iframe>
+                <figcaption class="imageCaption">A quick video demo</figcaption>
+              </figure>
+              <p name="9392" id="9392" class="graf graf--p graf-after--figure">
+                With the above proved out, we’ve long since moved to production
+                with further tweaks and improvements, and today, we’re running
+                thousands of applications through this integration on a daily
+                basis.
+              </p>
+              <h3 name="ae24" id="ae24" class="graf graf--h3 graf-after--p">
+                TL;DR
+              </h3>
+              <p name="5f21" id="5f21" class="graf graf--p graf-after--h3">
+                By combining Salesforce’s process orchestration and declarative
+                automation tools with AWS’ powerful machine learning tools,
+                serverless API services, and private link capabilities, we’ve
+                been able to spin up a modern, scalable, and largely code-free
+                intelligent underwriting process.
+              </p>
+              <p name="e4f8" id="e4f8" class="graf graf--p graf-after--p">
+                We hope this provides some useful insight into how to bring both
+                Salesforce and AWS together for this kind of ML use case.
+              </p>
+              <p
+                name="43f0"
+                id="43f0"
+                class="graf graf--p graf-after--p graf--trailing"
+              >
+                Huge thanks go out to Michael Bialkour and the NYC Salesforce
+                Technical Solutions team, as well as Ryan Verola and the NYC AWS
+                Technical Solutions, for their support in our evolution
+                here — and of course to the incredible team of Reach engineers
+                who helped bring this to life.
+              </p>
+            </div>
+          </div>
+        </section>
+        <section name="dc5a" class="section section--body section--last">
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <p
+                name="98e6"
+                id="98e6"
+                class="graf graf--p graf--leading graf--trailing"
+              >
+                <em class="markup--em markup--p-em"
+                  >Interested in working through these kinds of enterprise
+                  architecture challenges? Excited to jump into the fray and
+                  master these modern platforms? As you might expect, </em
+                ><a
+                  href="https://www.reach.com/corporate/about"
+                  data-href="https://www.reach.com/corporate/about"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  ><em class="markup--em markup--p-em">we’re hiring</em></a
+                ><em class="markup--em markup--p-em">
+                  engineers, designers, and technical product managers.</em
+                >
+              </p>
+            </div>
+          </div>
+        </section>
+      </section>
+      <footer>
+        <p>
+          By
+          <a href="https://medium.com/@frankycaron" class="p-author h-card"
+            >Frank Caron</a
+          >
+          on
+          <a href="https://medium.com/p/8ff3e8ef1b8"
+            ><time class="dt-published" datetime="2023-02-24T12:07:55.261Z"
+              >February 24, 2023</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@frankycaron/predictive-underwriting-with-salesforce-private-connect-flows-aws-sagemaker-and-lightgbm-8ff3e8ef1b8"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on July 2, 2023.
+        </p>
+      </footer>
+    </article>
+  </body>
+</html>
