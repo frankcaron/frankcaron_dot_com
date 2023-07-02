@@ -15,8 +15,6 @@ body {
 article,
 aside,
 details,
-figcaption,
-figure,
 footer,
 header,
 hgroup,
@@ -90,7 +88,8 @@ svg:not(:root) {
   overflow: hidden;
 }
 figure {
-  margin: 1em 40px;
+  text-align: center;
+  padding: 20px;
 }
 hr {
   height: 0;
@@ -1109,9 +1108,6 @@ a:focus {
   outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
-}
-figure {
-  margin: 0;
 }
 img {
   vertical-align: middle;
@@ -6799,8 +6795,3 @@ header {
       }
 
 */
-
-figure.graf, figure.graf--figure {
-  text-align: center;
-  padding: 20px;
-}
