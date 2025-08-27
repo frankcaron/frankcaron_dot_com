@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Gucci Are You Feeling?</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">How Gucci Are You Feeling?</h1>
+        </header>
+        
+        <main class="main-content">
+            <div class="image-container">
+                <img id="gucciImage" 
+                     src="https://pplx-res.cloudinary.com/image/upload/v1756323496/pplx_project_search_images/4d73ab072af8d1bc38f83dec89169da7fd113e7d.png" 
+                     alt="Gucci Mane" 
+                     class="gucci-image">
+            </div>
+            
+            <div class="slider-container">
+                <div class="slider-labels">
+                    <span class="slider-label left">Not Gucci</span>
+                    <span class="slider-label right">Gucci</span>
+                </div>
+                
+                <div class="slider-wrapper">
+                    <input type="range" 
+                           id="gucciSlider" 
+                           min="0" 
+                           max="100" 
+                           value="0" 
+                           class="slider">
+                </div>
+                
+                <div class="slider-value">
+                    <span id="sliderValue">0</span>% Gucci
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
