@@ -2,7 +2,6 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="When The Writing Stopped - Frank Caron | Ramblings">
       <meta name="author" content="Frank Caron">
@@ -24,20 +23,29 @@
 
     <title>When The Writing Stopped</title>
 
-    <!-- Bootstrap Core CSS -->
-    <link href="../css/bootstrap.css" rel="stylesheet">
+    <!-- Preconnect to external origins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://kit.fontawesome.com" crossorigin>
 
-    <!-- Custom CSS -->
-    <link href="../css/grayscale.css" rel="stylesheet">
+  <!-- CSS -->
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+  <link href="../css/grayscale.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
 
-    <!-- Custom Fonts -->
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans" />
-      <script src="https://kit.fontawesome.com/9c80f7570c.js" crossorigin="anonymous"></script>
+  <!-- Font Awesome (Kit — single load) -->
+  <script src="https://kit.fontawesome.com/9c80f7570c.js" crossorigin="anonymous" defer></script>
 
 <!-- Buy Me A Coffee -->
   <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="frankcaron" data-description="Support me on Buy me a coffee!" data-message="Support my writing so that someday I can escape the shackles of corporate America. " data-color="#FF813F" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+  <!-- GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1XVJ667VF2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-1XVJ667VF2');
+  </script>
 
   </head>
   <body>
@@ -263,17 +271,11 @@
         </p>
       </footer>
 
-    <!-- jQuery -->
-    <script src="/js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
+    <!-- jQuery (CDN minified) -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="/js/bootstrap.min.js"></script>
-
-    <!-- Plugin JavaScript -->
     <script src="/js/jquery.easing.min.js"></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src="/js/grayscale.js"></script>
+    <script src="/js/grayscale.min.js"></script>
     </article>
   </body>
 </html>

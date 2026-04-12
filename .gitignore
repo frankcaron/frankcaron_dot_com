@@ -1,0 +1,15 @@
+# macOS metadata
+.DS_Store
+**/.DS_Store
+
+# Pixelmator source files (raw design assets — not served)
+*.pxm
+
+# Raw source photos (not served)
+raw/
+
+# Node (if ever used locally)
+node_modules/
+
+# Build artifacts
+*.log
