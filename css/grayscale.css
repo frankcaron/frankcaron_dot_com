@@ -362,11 +362,33 @@ img::selection {
    Blog post pages
    ========================================= */
 
-/* The article <header> contains h1.p-name which duplicates the
-   h2.graf--title that Medium exports as the first body element.
-   Hide the template header; the body content is the source of truth. */
-article > header {
+/* Blog posts from Medium export have three redundant title elements:
+   1. article > header > h1.p-name  — PRIMARY title (keep visible)
+   2. section[data-field="subtitle"] — lede that repeats the body opener (hide)
+   3. .graf--title inside the body   — Medium's internal repeat (hide)
+   Show only the primary h1.p-name header. */
+section[data-field="subtitle"] {
     display: none;
+}
+
+.graf--title {
+    display: none;
+}
+
+/* Style the primary article header h1 */
+article > header h1.p-name {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 20px 0 24px;
+    color: #ff9900;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+@media (min-width: 768px) {
+    article > header h1.p-name {
+        font-size: 2.8rem;
+    }
 }
 
 /* Blog post article layout */
@@ -385,20 +407,7 @@ article h3 {
     color: #fff;
 }
 
-/* Medium export: first h2 is the post title — style it prominently */
-.graf--title {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-top: 20px;
-    color: #ff9900;
-    letter-spacing: 0;
-}
 
-@media (min-width: 768px) {
-    .graf--title {
-        font-size: 2.8rem;
-    }
-}
 
 article p,
 article .graf--p {
