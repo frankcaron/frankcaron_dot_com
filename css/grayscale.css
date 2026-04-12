@@ -357,3 +357,105 @@ a.biz {
 img::selection {
     background: transparent;
 }
+
+/* =========================================
+   Blog post pages
+   ========================================= */
+
+/* The article <header> contains h1.p-name which duplicates the
+   h2.graf--title that Medium exports as the first body element.
+   Hide the template header; the body content is the source of truth. */
+article > header {
+    display: none;
+}
+
+/* Blog post article layout */
+article.container {
+    max-width: 740px;
+    padding-top: 80px;
+    padding-bottom: 60px;
+    color: #fff;
+}
+
+article h1,
+article h2,
+article h3 {
+    margin-top: 40px;
+    margin-bottom: 16px;
+    color: #fff;
+}
+
+/* Medium export: first h2 is the post title — style it prominently */
+.graf--title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-top: 20px;
+    color: #ff9900;
+    letter-spacing: 0;
+}
+
+@media (min-width: 768px) {
+    .graf--title {
+        font-size: 2.8rem;
+    }
+}
+
+article p,
+article .graf--p {
+    font-size: 18px;
+    line-height: 1.7;
+    margin-bottom: 24px;
+    color: #e0e0e0;
+}
+
+@media (min-width: 768px) {
+    article p,
+    article .graf--p {
+        font-size: 20px;
+    }
+}
+
+article footer {
+    padding: 20px 0 10px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    margin-top: 40px;
+    font-size: 14px;
+    color: #999;
+}
+
+article footer p {
+    font-size: 14px;
+    color: #999;
+    margin: 0;
+}
+
+/* Blog list styles (blog.html) */
+ul.blog-posts {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 30px;
+}
+
+ul.blog-posts li {
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+ul.blog-posts li:last-child {
+    border-bottom: none;
+}
+
+ul.blog-posts a {
+    color: #ccc;
+    font-size: 17px;
+}
+
+ul.blog-posts a:hover {
+    color: #ff9900;
+}
+
+.blog-posts-new {
+    color: #ff9900;
+    font-size: 13px;
+    font-weight: 600;
+}
