@@ -1,0 +1,65 @@
+# Frank Caron
+
+> Frank Caron is a product manager, solution engineer, and writer based in New York City. He has over a decade of experience leading product strategy, product marketing, and sales engineering at companies including Salesforce, Reach, Loopio, Achievers, and others. He has shipped more than $100M in product and closed more than $80M as a sales engineer. He has been writing publicly since 2013, with bylines including Ars Technica.
+
+## About
+
+- **Name:** Frank Caron
+- **Location:** New York City, NY, USA
+- **Profession:** Product Manager, Solution Engineer, Writer
+- **Email:** frank@frankcaron.com
+- **Website:** https://www.frankcaron.com/
+
+## Professional Background
+
+Frank Caron's career spans technical product management, product marketing, and solution engineering. He is known for combining deep technical fluency (software development, APIs, CRM systems, marketing automation) with strong communication and writing skills. He has held senior roles at Salesforce, Reach, Loopio, Achievers, and other software companies.
+
+Core expertise areas:
+- Product management and product strategy
+- Sales engineering and solution consulting
+- Marketing automation (Salesforce Marketing Cloud, Braze)
+- CRM systems and data integration
+- Technical writing and documentation
+- Information architecture
+
+## Profiles and Presence
+
+- LinkedIn: https://www.linkedin.com/in/frankcaron
+- GitHub: https://github.com/frankcaron
+- Salesforce Trailblazer: https://trailblazer.me/id/frankcaron
+- Medium: https://frankycaron.medium.com
+- YouTube: https://m.youtube.com/c/FrankCaron
+- Reach Blog: https://build.reach.com
+
+## Writing — The Ramblings
+
+Frank Caron's personal blog at https://www.frankcaron.com/blog.html contains over 70 essays published between 2013 and 2024 on product management, technology, writing, and life. Selected posts:
+
+### Recent
+- [Regular Expression](https://www.frankcaron.com/blogs/2024-04-08_Regular-Expression.html) — 2024-04-08
+- [No Cap](https://www.frankcaron.com/blogs/2023-05-03_No-Cap.html) — 2023-05-03
+- [A Short Aside On The Death Of Pop](https://www.frankcaron.com/blogs/2023-04-30_A-Short-Aside-On-The-Death-Of-Pop.html) — 2023-04-30
+- [A Short Aside On Large Language Models And Kojima's Prophecy](https://www.frankcaron.com/blogs/2023-03-29_A-Short-Aside-On-Large-Language-Models-And-Kojima-s-Prophecy.html) — 2023-03-29
+- [Avenue C](https://www.frankcaron.com/blogs/2023-03-05_Avenue-C.html) — 2023-03-05
+- [Rat Race](https://www.frankcaron.com/blogs/2023-01-11_Rat-Race.html) — 2023-01-11
+- [Year Six — The Grand Finale](https://www.frankcaron.com/blogs/2023-01-06_Year-Six---The-Grand-Finale.html) — 2023-01-06
+
+### Product Management
+- [The Journey From Product Marketing To Presales](https://www.frankcaron.com/blogs/2022-01-30_The-Journey-From-Product-Marketing-To-Pre-Sales---Yet--A-nother--Rationalization-For-Posterity.html) — 2022-01-30
+- [The Rise Of The GM And The Case For Variably-Comped Product Managers](https://www.frankcaron.com/blogs/2018-08-13_The-Rise-Of-The-GM-And-The-Case-For-Variably-Comped-Product-Managers.html) — 2018-08-13
+- [The Lessons I've Learned From My CEOs](https://www.frankcaron.com/blogs/2018-03-19_The-Lessons-I-ve-Learned-From-My-CEOs.html) — 2018-03-19
+- [Start With The Story](https://www.frankcaron.com/blogs/2018-03-13_My-New-Product-Mantra--Start-With-The-Story.html) — 2018-03-13
+- [I'm Building A Moat](https://www.frankcaron.com/blogs/2018-03-06_I-m-Building-A-Moat--Are-You.html) — 2018-03-06
+- [The Secret To Listening Like A Product Manager](https://www.frankcaron.com/blogs/2018-02-26_The-Secret-To-Listening-Like-A-Product-Manager.html) — 2018-02-26
+- [Your Product Should Have An Ego](https://www.frankcaron.com/blogs/2018-02-05_Why-Your-Product-Should-Have-An-Ego.html) — 2018-02-05
+- [The Journey From Product Management To Product Marketing](https://www.frankcaron.com/blogs/2016-04-10_The-Journey-From-Product-Management-To-Product-Marketing--A-Rationalization-For-Posterity.html) — 2016-04-10
+- [War And Peace And Product](https://www.frankcaron.com/blogs/2015-05-26_War-and-Peace-And-Product.html) — 2015-05-26
+
+### Technology
+- [POST-Traumatic Stress: On API Ownership](https://www.frankcaron.com/blogs/2017-09-17_POST-traumatic-Stress--On-Product-API-Ownership.html) — 2017-09-17
+- [Great DX Is For More Than Developers](https://www.frankcaron.com/blogs/2017-09-19_Great-DX-Is-For-More-Than-Just-Developers.html) — 2017-09-19
+- [Service Is Your Product, Too](https://www.frankcaron.com/blogs/2017-11-01_Service-Is-Your-Product--Too.html) — 2017-11-01
+- [Software As Sushi](https://www.frankcaron.com/blogs/2013-07-03_Software-As-Sushi.html) — 2013-07-03
+
+### Full blog index
+https://www.frankcaron.com/blog.html

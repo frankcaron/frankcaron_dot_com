@@ -1,4 +1,23 @@
 User-agent: *
 Allow: /
 
+# AI crawlers — welcome, index everything
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: GoogleOther
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
 Sitemap: https://www.frankcaron.com/sitemap.xml
