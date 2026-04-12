@@ -468,3 +468,26 @@ ul.blog-posts a:hover {
     font-size: 13px;
     font-weight: 600;
 }
+
+/* =========================================
+   Blog post images — responsive scaling
+   ========================================= */
+
+article .graf-image,
+article figure img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+article figure {
+    margin: 32px 0;
+}
+
+article figcaption,
+article .imageCaption {
+    font-size: 14px;
+    color: #888;
+    text-align: center;
+    margin-top: 8px;
+}
