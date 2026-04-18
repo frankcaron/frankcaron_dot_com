@@ -471,6 +471,7 @@ canvas.addEventListener('contextmenu', e => e.preventDefault());
 let joystickDX = 0, joystickDY = 0;
 let moveStickId = null, moveStartX = 0, moveStartY = 0;
 let aimStickId = null, aimStartX = 0, aimStartY = 0;
+let aimStickDX = 0, aimStickDY = 0; // continuous aim stick displacement (-1 to 1)
 let touchFiring = false;
 
 const STICK_RADIUS = 60; // half of .stick-base width
@@ -545,15 +546,17 @@ if (isTouch) {
   // Start with idle opacity
   moveBase.style.opacity = '0.6';
 
-  // Aim stick (right side) — relative drag
+  // Aim stick (right side) — continuous: holding in a direction keeps turning
   const AIM_BASE_SIZE = 130;
   const AIM_BASE_HALF = AIM_BASE_SIZE / 2;
+  const AIM_STICK_MAX = 40; // px for full deflection
   touchRight.addEventListener('touchstart', e => {
     e.preventDefault();
     const t = e.changedTouches[0];
     aimStickId = t.identifier;
     aimStartX = t.clientX;
     aimStartY = t.clientY;
+    aimStickDX = 0; aimStickDY = 0;
     aimBase.style.right = 'auto';
     aimBase.style.bottom = 'auto';
     aimBase.style.left = (t.clientX - AIM_BASE_HALF) + 'px';
@@ -564,18 +567,20 @@ if (isTouch) {
     e.preventDefault();
     for (const t of e.changedTouches) {
       if (t.identifier === aimStickId) {
-        const dx = t.clientX - aimStartX;
-        const dy = t.clientY - aimStartY;
-        mouseDX += dx * 0.4;
-        mouseDZ += dy * 0.4;
-        aimStartX = t.clientX;
-        aimStartY = t.clientY;
-        updateThumb(aimThumb, dx * 3, dy * 3);
+        const rawDX = t.clientX - aimStartX;
+        const rawDY = t.clientY - aimStartY;
+        const dist = Math.sqrt(rawDX * rawDX + rawDY * rawDY);
+        const clamped = Math.min(dist, AIM_STICK_MAX);
+        const norm = dist > 0 ? clamped / dist : 0;
+        aimStickDX = (rawDX * norm) / AIM_STICK_MAX;
+        aimStickDY = (rawDY * norm) / AIM_STICK_MAX;
+        updateThumb(aimThumb, rawDX, rawDY);
       }
     }
   }, { passive: false });
   function resetAimStick() {
     aimStickId = null;
+    aimStickDX = 0; aimStickDY = 0;
     updateThumb(aimThumb, 0, 0);
     aimBase.style.left = 'auto';
     aimBase.style.top = 'auto';
@@ -781,9 +786,16 @@ function update(dt) {
   }
 
   // Camera rotation
-  const sensitivity = isTouch ? 0.004 : 0.002;
-  p.yaw -= mouseDX * sensitivity;
-  p.pitch -= mouseDZ * sensitivity;
+  if (isTouch) {
+    // Continuous rotation from aim stick displacement
+    const aimSpeed = 3.0; // radians per second at full deflection
+    p.yaw -= aimStickDX * aimSpeed * dt;
+    p.pitch -= aimStickDY * aimSpeed * dt;
+  } else {
+    const sensitivity = 0.002;
+    p.yaw -= mouseDX * sensitivity;
+    p.pitch -= mouseDZ * sensitivity;
+  }
   p.pitch = clamp(p.pitch, -0.6, 0.8);
   mouseDX = 0;
   mouseDZ = 0;
