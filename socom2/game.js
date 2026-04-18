@@ -775,8 +775,8 @@ function update(dt) {
     mx /= mlen; mz /= mlen;
     // Rotate movement by yaw
     const sinY = Math.sin(p.yaw), cosY = Math.cos(p.yaw);
-    const fwdX = mx * cosY + mz * sinY;
-    const fwdZ = mx * sinY - mz * cosY;
+    const fwdX = mx * cosY - mz * sinY;
+    const fwdZ = -mx * sinY - mz * cosY;
     moveEntity3D(p, fwdX * speed * dt, fwdZ * speed * dt);
   }
 
