@@ -22,6 +22,7 @@ canvas#game{display:block;width:100%;height:100%}
 .hud-score{text-align:right}
 .hud-score div{font-size:13px;font-weight:600;text-shadow:0 1px 4px rgba(0,0,0,.8);font-family:'Share Tech Mono',monospace;font-variant-numeric:tabular-nums lining-nums}
 .hud-weapon{position:fixed;bottom:14px;right:16px;text-align:right}
+@media (pointer:coarse){.hud-weapon{bottom:auto;top:50px;right:16px}}
 .weapon-name{font-size:16px;font-weight:700;text-shadow:0 1px 4px rgba(0,0,0,.8);letter-spacing:1px}
 .ammo-count{font-size:28px;font-weight:700;font-family:'Share Tech Mono',monospace;text-shadow:0 1px 4px rgba(0,0,0,.8);font-variant-numeric:tabular-nums lining-nums}
 .ammo-reserve{font-size:14px;color:#8a9a80;font-family:'Share Tech Mono',monospace;font-variant-numeric:tabular-nums lining-nums}
@@ -35,16 +36,25 @@ canvas#game{display:block;width:100%;height:100%}
 
 /* Minimap */
 #minimap-container{position:fixed;bottom:12px;left:12px;pointer-events:none;z-index:10}
+@media (pointer:coarse){#minimap-container{bottom:165px;left:12px}}
 #minimap{border:1px solid rgba(100,200,100,.3);border-radius:4px;background:rgba(0,0,0,.5)}
 
 /* Touch controls */
 #touch-controls{position:fixed;bottom:0;left:0;right:0;top:0;z-index:20;display:none}
 .touch-active #touch-controls{display:block}
-#joystick-zone{position:absolute;bottom:0;left:0;width:45%;height:60%;pointer-events:auto}
-#aim-zone{position:absolute;bottom:0;right:0;width:55%;height:100%;pointer-events:auto}
-#fire-btn{position:absolute;bottom:80px;right:20px;width:72px;height:72px;border-radius:50%;background:radial-gradient(circle,rgba(255,60,60,.5),rgba(200,30,30,.3));border:2px solid rgba(255,80,80,.6);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:rgba(255,200,200,.9);letter-spacing:1px;pointer-events:auto}
-#reload-btn{position:absolute;bottom:164px;right:32px;width:52px;height:52px;border-radius:50%;background:rgba(100,180,255,.2);border:2px solid rgba(100,180,255,.4);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;color:rgba(180,220,255,.9);pointer-events:auto}
-#weapon-switch-btn{position:absolute;bottom:224px;right:40px;width:44px;height:44px;border-radius:8px;background:rgba(200,200,100,.15);border:1px solid rgba(200,200,100,.3);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-size:18px;color:rgba(200,200,100,.8);pointer-events:auto}
+#touch-left{position:absolute;bottom:0;left:0;width:50%;height:100%;pointer-events:auto}
+#touch-right{position:absolute;bottom:0;right:0;width:50%;height:100%;pointer-events:auto}
+
+/* Analog stick bases */
+.stick-base{position:absolute;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.06);border:2px solid rgba(255,255,255,.12);pointer-events:none}
+.stick-thumb{position:absolute;width:50px;height:50px;border-radius:50%;background:radial-gradient(circle at 40% 38%,rgba(255,255,255,.25),rgba(255,255,255,.08));border:2px solid rgba(255,255,255,.2);pointer-events:none;transition:none;left:50%;top:50%;transform:translate(-50%,-50%)}
+#move-base{bottom:30px;left:30px}
+#aim-base{bottom:30px;right:30px}
+
+/* Action buttons */
+#fire-btn{position:absolute;bottom:170px;right:20px;width:68px;height:68px;border-radius:50%;background:radial-gradient(circle,rgba(255,60,60,.45),rgba(200,30,30,.25));border:2px solid rgba(255,80,80,.5);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;color:rgba(255,200,200,.85);letter-spacing:1px;pointer-events:auto;-webkit-tap-highlight-color:transparent}
+#reload-btn{position:absolute;bottom:250px;right:30px;width:48px;height:48px;border-radius:50%;background:rgba(100,180,255,.15);border:2px solid rgba(100,180,255,.35);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;color:rgba(180,220,255,.85);pointer-events:auto;-webkit-tap-highlight-color:transparent}
+#weapon-switch-btn{position:absolute;bottom:310px;right:38px;width:42px;height:42px;border-radius:8px;background:rgba(200,200,100,.12);border:1px solid rgba(200,200,100,.25);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-size:18px;color:rgba(200,200,100,.7);pointer-events:auto;-webkit-tap-highlight-color:transparent}
 
 /* Title screen */
 #title-screen{position:fixed;inset:0;z-index:100;background:#0a0c0f;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px}
@@ -105,8 +115,10 @@ canvas#game{display:block;width:100%;height:100%}
 </div>
 
 <div id="touch-controls">
-  <div id="joystick-zone"></div>
-  <div id="aim-zone"></div>
+  <div id="touch-left"></div>
+  <div id="touch-right"></div>
+  <div class="stick-base" id="move-base"><div class="stick-thumb" id="move-thumb"></div></div>
+  <div class="stick-base" id="aim-base"><div class="stick-thumb" id="aim-thumb"></div></div>
   <div id="fire-btn">FIRE</div>
   <div id="reload-btn">R</div>
   <div id="weapon-switch-btn">&#8645;</div>

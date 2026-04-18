@@ -467,26 +467,116 @@ canvas.addEventListener('mousemove', e => {
 });
 canvas.addEventListener('contextmenu', e => e.preventDefault());
 
-// Touch input
-let joystickActive = false, joystickDX = 0, joystickDY = 0, joystickId = null, joystickStartX = 0, joystickStartY = 0;
-let aimId = null, aimStartX = 0, aimStartY = 0;
+// Touch input — dual analog sticks
+let joystickDX = 0, joystickDY = 0;
+let moveStickId = null, moveStartX = 0, moveStartY = 0;
+let aimStickId = null, aimStartX = 0, aimStartY = 0;
 let touchFiring = false;
 
-const jZone = document.getElementById('joystick-zone');
-const aZone = document.getElementById('aim-zone');
+const STICK_RADIUS = 60; // half of .stick-base width
+const STICK_MAX = 35;    // max thumb travel in px
+
+const touchLeft = document.getElementById('touch-left');
+const touchRight = document.getElementById('touch-right');
+const moveBase = document.getElementById('move-base');
+const moveThumb = document.getElementById('move-thumb');
+const aimBase = document.getElementById('aim-base');
+const aimThumb = document.getElementById('aim-thumb');
 const fireBtn = document.getElementById('fire-btn');
 const reloadBtnEl = document.getElementById('reload-btn');
 const weaponSwitchBtn = document.getElementById('weapon-switch-btn');
 
+function updateThumb(thumb, dx, dy) {
+  const dist = Math.sqrt(dx * dx + dy * dy);
+  const capped = Math.min(dist, STICK_MAX);
+  const scale = dist > 0 ? capped / dist : 0;
+  const tx = dx * scale;
+  const ty = dy * scale;
+  thumb.style.transform = 'translate(calc(-50% + ' + tx + 'px), calc(-50% + ' + ty + 'px))';
+}
+
 if (isTouch) {
-  jZone.addEventListener('touchstart', e => { e.preventDefault(); const t = e.changedTouches[0]; joystickActive = true; joystickId = t.identifier; joystickStartX = t.clientX; joystickStartY = t.clientY; }, { passive: false });
-  jZone.addEventListener('touchmove', e => { e.preventDefault(); for (const t of e.changedTouches) { if (t.identifier === joystickId) { joystickDX = clamp((t.clientX - joystickStartX) / 50, -1, 1); joystickDY = clamp((t.clientY - joystickStartY) / 50, -1, 1); } } }, { passive: false });
-  jZone.addEventListener('touchend', e => { for (const t of e.changedTouches) { if (t.identifier === joystickId) { joystickActive = false; joystickDX = 0; joystickDY = 0; joystickId = null; } } });
+  // Move stick (left side)
+  touchLeft.addEventListener('touchstart', e => {
+    e.preventDefault();
+    const t = e.changedTouches[0];
+    moveStickId = t.identifier;
+    moveStartX = t.clientX;
+    moveStartY = t.clientY;
+  }, { passive: false });
+  touchLeft.addEventListener('touchmove', e => {
+    e.preventDefault();
+    for (const t of e.changedTouches) {
+      if (t.identifier === moveStickId) {
+        const rawDX = t.clientX - moveStartX;
+        const rawDY = t.clientY - moveStartY;
+        const dist = Math.sqrt(rawDX * rawDX + rawDY * rawDY);
+        const clamped = Math.min(dist, STICK_MAX);
+        const norm = dist > 0 ? clamped / dist : 0;
+        joystickDX = (rawDX * norm) / STICK_MAX;
+        joystickDY = (rawDY * norm) / STICK_MAX;
+        updateThumb(moveThumb, rawDX, rawDY);
+      }
+    }
+  }, { passive: false });
+  touchLeft.addEventListener('touchend', e => {
+    for (const t of e.changedTouches) {
+      if (t.identifier === moveStickId) {
+        moveStickId = null; joystickDX = 0; joystickDY = 0;
+        updateThumb(moveThumb, 0, 0);
+      }
+    }
+  });
+  touchLeft.addEventListener('touchcancel', e => {
+    for (const t of e.changedTouches) {
+      if (t.identifier === moveStickId) {
+        moveStickId = null; joystickDX = 0; joystickDY = 0;
+        updateThumb(moveThumb, 0, 0);
+      }
+    }
+  });
 
-  aZone.addEventListener('touchstart', e => { e.preventDefault(); const t = e.changedTouches[0]; aimId = t.identifier; aimStartX = t.clientX; aimStartY = t.clientY; }, { passive: false });
-  aZone.addEventListener('touchmove', e => { e.preventDefault(); for (const t of e.changedTouches) { if (t.identifier === aimId) { const dx = t.clientX - aimStartX; const dy = t.clientY - aimStartY; mouseDX += dx * 0.4; mouseDZ += dy * 0.4; aimStartX = t.clientX; aimStartY = t.clientY; } } }, { passive: false });
-  aZone.addEventListener('touchend', e => { for (const t of e.changedTouches) { if (t.identifier === aimId) { aimId = null; } } });
+  // Aim stick (right side)
+  touchRight.addEventListener('touchstart', e => {
+    e.preventDefault();
+    const t = e.changedTouches[0];
+    aimStickId = t.identifier;
+    aimStartX = t.clientX;
+    aimStartY = t.clientY;
+  }, { passive: false });
+  touchRight.addEventListener('touchmove', e => {
+    e.preventDefault();
+    for (const t of e.changedTouches) {
+      if (t.identifier === aimStickId) {
+        const dx = t.clientX - aimStartX;
+        const dy = t.clientY - aimStartY;
+        mouseDX += dx * 0.4;
+        mouseDZ += dy * 0.4;
+        aimStartX = t.clientX;
+        aimStartY = t.clientY;
+        // Visual: show displacement from current position
+        updateThumb(aimThumb, dx * 2, dy * 2);
+      }
+    }
+  }, { passive: false });
+  touchRight.addEventListener('touchend', e => {
+    for (const t of e.changedTouches) {
+      if (t.identifier === aimStickId) {
+        aimStickId = null;
+        updateThumb(aimThumb, 0, 0);
+      }
+    }
+  });
+  touchRight.addEventListener('touchcancel', e => {
+    for (const t of e.changedTouches) {
+      if (t.identifier === aimStickId) {
+        aimStickId = null;
+        updateThumb(aimThumb, 0, 0);
+      }
+    }
+  });
 
+  // Action buttons
   fireBtn.addEventListener('touchstart', e => { e.preventDefault(); touchFiring = true; }, { passive: false });
   fireBtn.addEventListener('touchend', () => { touchFiring = false; });
   fireBtn.addEventListener('touchcancel', () => { touchFiring = false; });
