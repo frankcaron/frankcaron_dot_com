@@ -670,14 +670,14 @@ function update(dt) {
     mx /= mlen; mz /= mlen;
     // Rotate movement by yaw
     const sinY = Math.sin(p.yaw), cosY = Math.cos(p.yaw);
-    const fwdX = mx * cosY - mz * sinY;
-    const fwdZ = -mx * sinY - mz * cosY;
+    const fwdX = mx * cosY + mz * sinY;
+    const fwdZ = mx * sinY - mz * cosY;
     moveEntity3D(p, fwdX * speed * dt, fwdZ * speed * dt);
   }
 
   // Camera rotation
   const sensitivity = isTouch ? 0.004 : 0.002;
-  p.yaw += mouseDX * sensitivity;
+  p.yaw -= mouseDX * sensitivity;
   p.pitch -= mouseDZ * sensitivity;
   p.pitch = clamp(p.pitch, -0.6, 0.8);
   mouseDX = 0;
