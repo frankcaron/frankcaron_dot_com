@@ -496,13 +496,21 @@ function updateThumb(thumb, dx, dy) {
 }
 
 if (isTouch) {
-  // Move stick (left side)
+  const MOVE_BASE_SIZE = 130;
+  const MOVE_BASE_HALF = MOVE_BASE_SIZE / 2;
+
+  // Move stick (left side) — floating: base moves to where you touch
   touchLeft.addEventListener('touchstart', e => {
     e.preventDefault();
     const t = e.changedTouches[0];
     moveStickId = t.identifier;
     moveStartX = t.clientX;
     moveStartY = t.clientY;
+    // Move the visual base to the touch point
+    moveBase.style.left = (t.clientX - MOVE_BASE_HALF) + 'px';
+    moveBase.style.bottom = 'auto';
+    moveBase.style.top = (t.clientY - MOVE_BASE_HALF) + 'px';
+    moveBase.style.opacity = '1';
   }, { passive: false });
   touchLeft.addEventListener('touchmove', e => {
     e.preventDefault();
@@ -519,30 +527,38 @@ if (isTouch) {
       }
     }
   }, { passive: false });
+  function resetMoveStick() {
+    moveStickId = null; joystickDX = 0; joystickDY = 0;
+    updateThumb(moveThumb, 0, 0);
+    // Reset base to default position
+    moveBase.style.left = '20px';
+    moveBase.style.top = 'auto';
+    moveBase.style.bottom = '20px';
+    moveBase.style.opacity = '0.6';
+  }
   touchLeft.addEventListener('touchend', e => {
-    for (const t of e.changedTouches) {
-      if (t.identifier === moveStickId) {
-        moveStickId = null; joystickDX = 0; joystickDY = 0;
-        updateThumb(moveThumb, 0, 0);
-      }
-    }
+    for (const t of e.changedTouches) { if (t.identifier === moveStickId) resetMoveStick(); }
   });
   touchLeft.addEventListener('touchcancel', e => {
-    for (const t of e.changedTouches) {
-      if (t.identifier === moveStickId) {
-        moveStickId = null; joystickDX = 0; joystickDY = 0;
-        updateThumb(moveThumb, 0, 0);
-      }
-    }
+    for (const t of e.changedTouches) { if (t.identifier === moveStickId) resetMoveStick(); }
   });
+  // Start with idle opacity
+  moveBase.style.opacity = '0.6';
 
-  // Aim stick (right side)
+  // Aim stick (right side) — relative drag
+  const AIM_BASE_SIZE = 130;
+  const AIM_BASE_HALF = AIM_BASE_SIZE / 2;
   touchRight.addEventListener('touchstart', e => {
     e.preventDefault();
     const t = e.changedTouches[0];
     aimStickId = t.identifier;
     aimStartX = t.clientX;
     aimStartY = t.clientY;
+    aimBase.style.right = 'auto';
+    aimBase.style.bottom = 'auto';
+    aimBase.style.left = (t.clientX - AIM_BASE_HALF) + 'px';
+    aimBase.style.top = (t.clientY - AIM_BASE_HALF) + 'px';
+    aimBase.style.opacity = '1';
   }, { passive: false });
   touchRight.addEventListener('touchmove', e => {
     e.preventDefault();
@@ -554,34 +570,33 @@ if (isTouch) {
         mouseDZ += dy * 0.4;
         aimStartX = t.clientX;
         aimStartY = t.clientY;
-        // Visual: show displacement from current position
-        updateThumb(aimThumb, dx * 2, dy * 2);
+        updateThumb(aimThumb, dx * 3, dy * 3);
       }
     }
   }, { passive: false });
+  function resetAimStick() {
+    aimStickId = null;
+    updateThumb(aimThumb, 0, 0);
+    aimBase.style.left = 'auto';
+    aimBase.style.top = 'auto';
+    aimBase.style.right = '20px';
+    aimBase.style.bottom = '20px';
+    aimBase.style.opacity = '0.6';
+  }
   touchRight.addEventListener('touchend', e => {
-    for (const t of e.changedTouches) {
-      if (t.identifier === aimStickId) {
-        aimStickId = null;
-        updateThumb(aimThumb, 0, 0);
-      }
-    }
+    for (const t of e.changedTouches) { if (t.identifier === aimStickId) resetAimStick(); }
   });
   touchRight.addEventListener('touchcancel', e => {
-    for (const t of e.changedTouches) {
-      if (t.identifier === aimStickId) {
-        aimStickId = null;
-        updateThumb(aimThumb, 0, 0);
-      }
-    }
+    for (const t of e.changedTouches) { if (t.identifier === aimStickId) resetAimStick(); }
   });
+  aimBase.style.opacity = '0.6';
 
-  // Action buttons
-  fireBtn.addEventListener('touchstart', e => { e.preventDefault(); touchFiring = true; }, { passive: false });
-  fireBtn.addEventListener('touchend', () => { touchFiring = false; });
-  fireBtn.addEventListener('touchcancel', () => { touchFiring = false; });
-  reloadBtnEl.addEventListener('touchstart', e => { e.preventDefault(); startReload(); }, { passive: false });
-  weaponSwitchBtn.addEventListener('touchstart', e => { e.preventDefault(); if (state.player) switchWeapon((state.player.weaponIndex + 1) % state.player.weapons.length); }, { passive: false });
+  // Action buttons — stop propagation so they don't trigger stick zones
+  fireBtn.addEventListener('touchstart', e => { e.preventDefault(); e.stopPropagation(); touchFiring = true; }, { passive: false });
+  fireBtn.addEventListener('touchend', e => { e.stopPropagation(); touchFiring = false; });
+  fireBtn.addEventListener('touchcancel', e => { e.stopPropagation(); touchFiring = false; });
+  reloadBtnEl.addEventListener('touchstart', e => { e.preventDefault(); e.stopPropagation(); startReload(); }, { passive: false });
+  weaponSwitchBtn.addEventListener('touchstart', e => { e.preventDefault(); e.stopPropagation(); if (state.player) switchWeapon((state.player.weaponIndex + 1) % state.player.weapons.length); }, { passive: false });
 }
 
 // --- Weapon helpers ---
