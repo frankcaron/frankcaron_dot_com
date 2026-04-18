@@ -983,6 +983,30 @@ function gameLoop() {
   }
 
   renderer.render(scene, camera);
+
+  // Project aim point onto screen for crosshair placement
+  if (state.player) {
+    const pp = state.player;
+    const aimFwd = new THREE.Vector3(0, 0, 1).applyAxisAngle(new THREE.Vector3(0, 1, 0), pp.yaw);
+    aimFwd.y = pp.pitch * 0.5;
+    aimFwd.normalize();
+    // Project a point 40 units ahead of the gun barrel
+    const aimPt = new THREE.Vector3(
+      pp.x + aimFwd.x * 40,
+      1.2 + aimFwd.y * 40,
+      pp.z + aimFwd.z * 40
+    );
+    aimPt.project(camera);
+    const ch = document.getElementById('crosshair');
+    if (ch) {
+      const hw = window.innerWidth / 2;
+      const hh = window.innerHeight / 2;
+      const sx = (aimPt.x * hw) + hw;
+      const sy = -(aimPt.y * hh) + hh;
+      ch.style.transform = 'translate(' + (sx - 16) + 'px,' + (sy - 16) + 'px)';
+    }
+  }
+
   drawMinimap();
   updateHUD();
 }
