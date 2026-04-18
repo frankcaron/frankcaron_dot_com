@@ -2,19 +2,136 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Guerrilla War</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html, body { width: 100%; height: 100%; overflow: hidden; background: #000; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: #000; touch-action: none; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
 canvas { display: block; image-rendering: pixelated; image-rendering: crisp-edges; }
 #gameCanvas { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+
+/* --- Touch Controls Overlay --- */
+#touch-controls {
+  display: none; /* shown via JS on touch devices */
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+}
+#touch-controls.visible { display: block; }
+
+/* D-Pad */
+.dpad {
+  position: absolute;
+  bottom: 24px;
+  left: 20px;
+  width: 140px;
+  height: 140px;
+  pointer-events: auto;
+}
+.dpad-btn {
+  position: absolute;
+  width: 46px;
+  height: 46px;
+  background: rgba(255,255,255,0.13);
+  border: 2px solid rgba(255,255,255,0.28);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  -webkit-tap-highlight-color: transparent;
+}
+.dpad-btn.active { background: rgba(255,255,255,0.32); }
+.dpad-btn svg { width: 22px; height: 22px; fill: rgba(255,255,255,0.65); }
+.dpad-up    { top: 0;   left: 47px; }
+.dpad-down  { bottom: 0; left: 47px; }
+.dpad-left  { top: 47px; left: 0; }
+.dpad-right { top: 47px; right: 0; }
+
+/* Action buttons */
+.action-btns {
+  position: absolute;
+  bottom: 24px;
+  right: 20px;
+  width: 140px;
+  height: 140px;
+  pointer-events: auto;
+}
+.action-btn {
+  position: absolute;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.13);
+  border: 2px solid rgba(255,255,255,0.28);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  -webkit-tap-highlight-color: transparent;
+  color: rgba(255,255,255,0.6);
+  font: bold 11px 'Press Start 2P', monospace;
+  text-align: center;
+  line-height: 1.2;
+}
+.action-btn.active { background: rgba(255,255,255,0.32); }
+.btn-shoot   { bottom: 46px; right: 0; background: rgba(248,56,0,0.2); border-color: rgba(248,56,0,0.45); }
+.btn-grenade { bottom: 0; left: 0; background: rgba(0,168,0,0.2); border-color: rgba(0,168,0,0.45); }
+.btn-start {
+  position: absolute;
+  bottom: 85px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 72px;
+  height: 32px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.10);
+  border: 2px solid rgba(255,255,255,0.22);
+  pointer-events: auto;
+  -webkit-tap-highlight-color: transparent;
+  color: rgba(255,255,255,0.5);
+  font: 8px 'Press Start 2P', monospace;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-start.active { background: rgba(255,255,255,0.28); }
 </style>
 </head>
 <body>
 <canvas id="gameCanvas"></canvas>
+
+<!-- Touch Controls -->
+<div id="touch-controls">
+  <!-- D-Pad -->
+  <div class="dpad">
+    <div class="dpad-btn dpad-up" data-key="ArrowUp">
+      <svg viewBox="0 0 24 24"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>
+    </div>
+    <div class="dpad-btn dpad-down" data-key="ArrowDown">
+      <svg viewBox="0 0 24 24"><path d="M12 20l8-8h-5V4H9v8H4z"/></svg>
+    </div>
+    <div class="dpad-btn dpad-left" data-key="ArrowLeft">
+      <svg viewBox="0 0 24 24"><path d="M4 12l8-8v5h8v6h-8v5z"/></svg>
+    </div>
+    <div class="dpad-btn dpad-right" data-key="ArrowRight">
+      <svg viewBox="0 0 24 24"><path d="M20 12l-8 8v-5H4v-6h8V4z"/></svg>
+    </div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="action-btns">
+    <div class="action-btn btn-shoot" data-key="KeyZ">FIRE</div>
+    <div class="action-btn btn-grenade" data-key="KeyX">GRN</div>
+  </div>
+
+  <!-- Start / Pause -->
+  <div class="btn-start" data-key="Enter">START</div>
+</div>
+
 <script src="game.js"></script>
 </body>
 </html>

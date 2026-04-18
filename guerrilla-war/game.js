@@ -42,12 +42,25 @@ canvas.width = NATIVE_W;
 canvas.height = NATIVE_H;
 ctx.imageSmoothingEnabled = false;
 
+let touchVisible = false;
 function resizeCanvas() {
+  const overlay = document.getElementById('touch-controls');
+  touchVisible = overlay && overlay.classList.contains('visible');
+  // On touch devices, reserve bottom 180px for controls
+  const availH = touchVisible ? window.innerHeight - 170 : window.innerHeight;
   const scaleX = window.innerWidth / NATIVE_W;
-  const scaleY = window.innerHeight / NATIVE_H;
-  const scale = Math.floor(Math.min(scaleX, scaleY)) || 1;
+  const scaleY = availH / NATIVE_H;
+  const scale = Math.max(1, Math.floor(Math.min(scaleX, scaleY)));
   canvas.style.width = (NATIVE_W * scale) + 'px';
   canvas.style.height = (NATIVE_H * scale) + 'px';
+  if (touchVisible) {
+    // Shift canvas up to make room for controls
+    canvas.style.top = '50%';
+    canvas.style.transform = 'translate(-50%, -60%)';
+  } else {
+    canvas.style.top = '50%';
+    canvas.style.transform = 'translate(-50%, -50%)';
+  }
 }
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
@@ -503,6 +516,97 @@ const Input = {
   wasPressed(code) { return !!this.justPressed[code]; },
 };
 Input.init();
+
+// --- TOUCH CONTROLS ---
+(function initTouchControls() {
+  const overlay = document.getElementById('touch-controls');
+  if (!overlay) return;
+
+  // Detect touch-capable device and show overlay
+  let isTouchDevice = false;
+  function showTouch() {
+    if (isTouchDevice) return;
+    isTouchDevice = true;
+    overlay.classList.add('visible');
+    resizeCanvas(); // re-layout for touch
+  }
+  window.addEventListener('touchstart', showTouch, { once: true, passive: true });
+  // Also detect on pointer if it's coarse (phone/tablet)
+  if (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) showTouch();
+
+  // Track which touch IDs are on which buttons
+  const touchMap = new Map(); // touchId -> data-key
+
+  function keyForTouch(touch) {
+    const el = document.elementFromPoint(touch.clientX, touch.clientY);
+    if (!el) return null;
+    const btn = el.closest('[data-key]');
+    return btn ? btn.dataset.key : null;
+  }
+
+  function pressKey(code) {
+    if (code && !Input.keys[code]) Input.justPressed[code] = true;
+    if (code) Input.keys[code] = true;
+  }
+  function releaseKey(code) {
+    if (code) Input.keys[code] = false;
+  }
+
+  function setActive(code, on) {
+    const el = overlay.querySelector('[data-key="' + code + '"]');
+    if (el) el.classList.toggle('active', on);
+  }
+
+  overlay.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    // Also init audio on first touch (mobile Safari requirement)
+    initAudio();
+    for (const t of e.changedTouches) {
+      const key = keyForTouch(t);
+      if (key) {
+        touchMap.set(t.identifier, key);
+        pressKey(key);
+        setActive(key, true);
+      }
+    }
+  }, { passive: false });
+
+  overlay.addEventListener('touchmove', (e) => {
+    e.preventDefault();
+    for (const t of e.changedTouches) {
+      const oldKey = touchMap.get(t.identifier);
+      const newKey = keyForTouch(t);
+      if (oldKey !== newKey) {
+        // Finger slid off one button onto another
+        if (oldKey) { releaseKey(oldKey); setActive(oldKey, false); }
+        if (newKey) { pressKey(newKey); setActive(newKey, true); touchMap.set(t.identifier, newKey); }
+        else { touchMap.delete(t.identifier); }
+      }
+    }
+  }, { passive: false });
+
+  function handleTouchEnd(e) {
+    e.preventDefault();
+    for (const t of e.changedTouches) {
+      const key = touchMap.get(t.identifier);
+      if (key) { releaseKey(key); setActive(key, false); }
+      touchMap.delete(t.identifier);
+    }
+  }
+  overlay.addEventListener('touchend', handleTouchEnd, { passive: false });
+  overlay.addEventListener('touchcancel', handleTouchEnd, { passive: false });
+
+  // Also let tapping on the canvas itself start/shoot (for title screen tap-to-start)
+  canvas.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    initAudio();
+    if (gameState === STATE.TITLE || gameState === STATE.VICTORY) {
+      if (!Input.keys['Enter']) Input.justPressed['Enter'] = true;
+      Input.keys['Enter'] = true;
+      setTimeout(() => { Input.keys['Enter'] = false; }, 100);
+    }
+  }, { passive: false });
+})();
 
 // --- GAME STATE ---
 const STATE = {
@@ -1583,7 +1687,7 @@ function drawTitleScreen() {
   if (Math.floor(Date.now() / 500) % 2 === 0) {
     ctx.fillStyle = PAL.white;
     ctx.font = '8px "Press Start 2P", monospace';
-    ctx.fillText('PRESS SPACE TO START', NATIVE_W/2, 210);
+    ctx.fillText(touchVisible ? 'TAP TO START' : 'PRESS SPACE TO START', NATIVE_W/2, 210);
   }
   
   // Copyright
