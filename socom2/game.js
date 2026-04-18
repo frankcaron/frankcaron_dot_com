@@ -1003,7 +1003,7 @@ function gameLoop() {
       const hh = window.innerHeight / 2;
       const sx = (aimPt.x * hw) + hw;
       const sy = -(aimPt.y * hh) + hh;
-      ch.style.transform = 'translate(' + (sx - 16) + 'px,' + (sy - 16) + 'px)';
+      ch.style.transform = 'translate3d(' + (sx - 16) + 'px,' + (sy - 16) + 'px,0)';
     }
   }
 
