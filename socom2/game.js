@@ -677,7 +677,7 @@ function update(dt) {
 
   // Camera rotation
   const sensitivity = isTouch ? 0.004 : 0.002;
-  p.yaw -= mouseDX * sensitivity;
+  p.yaw += mouseDX * sensitivity;
   p.pitch -= mouseDZ * sensitivity;
   p.pitch = clamp(p.pitch, -0.6, 0.8);
   mouseDX = 0;
