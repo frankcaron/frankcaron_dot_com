@@ -1,0 +1,29 @@
+{
+  "api-catalog-version": "1.0",
+  "apis": [
+    {
+      "name": "Frank Caron — Site Resources",
+      "description": "Machine-readable resources for frankcaron.com, a personal site and blog by Frank Caron.",
+      "links": [
+        {
+          "href": "https://www.frankcaron.com/sitemap.xml",
+          "rel": "describedby",
+          "type": "application/xml",
+          "title": "XML Sitemap"
+        },
+        {
+          "href": "https://www.frankcaron.com/llms.txt",
+          "rel": "describedby",
+          "type": "text/plain",
+          "title": "LLMs.txt — structured site summary for AI agents"
+        },
+        {
+          "href": "https://www.frankcaron.com/blog.html",
+          "rel": "service-doc",
+          "type": "text/html",
+          "title": "The Ramblings — Blog Index"
+        }
+      ]
+    }
+  ]
+}
