@@ -1,6 +1,6 @@
 # Frank Caron
 
-> Frank Caron is a product manager, solution engineer, and writer based in New York City. He has over a decade of experience leading product strategy, product marketing, and sales engineering at companies including Salesforce, Reach, Loopio, Achievers, and others. He has shipped more than $100M in product and closed more than $80M as a sales engineer. He has been writing publicly since 2013, with bylines including Ars Technica.
+> Frank Caron is a product manager, solution engineer, and writer based in New York City. He has over a decade of experience leading product strategy, product marketing, and sales engineering at companies including Salesforce, Reach, Loopio, Achievers, and others. He has shipped more than $500M in product and closed more than $85M as a sales engineer. He has been writing publicly since 2013, with bylines including Ars Technica.
 
 ## About
 
