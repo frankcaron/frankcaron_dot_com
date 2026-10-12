@@ -1,27 +1,37 @@
 {
-  "api-catalog-version": "1.0",
-  "apis": [
+  "linkset": [
     {
-      "name": "Frank Caron — Site Resources",
-      "description": "Machine-readable resources for frankcaron.com, a personal site and blog by Frank Caron.",
-      "links": [
+      "anchor": "https://www.frankcaron.com/.well-known/api-catalog",
+      "item": [
         {
           "href": "https://www.frankcaron.com/sitemap.xml",
-          "rel": "describedby",
           "type": "application/xml",
-          "title": "XML Sitemap"
+          "title": "XML sitemap of every page and blog post"
         },
         {
           "href": "https://www.frankcaron.com/llms.txt",
-          "rel": "describedby",
           "type": "text/plain",
-          "title": "LLMs.txt — structured site summary for AI agents"
-        },
+          "title": "llms.txt: structured site summary for AI agents"
+        }
+      ]
+    },
+    {
+      "anchor": "https://www.frankcaron.com/sitemap.xml",
+      "service-doc": [
         {
-          "href": "https://www.frankcaron.com/blog.html",
-          "rel": "service-doc",
+          "href": "https://www.sitemaps.org/protocol.html",
           "type": "text/html",
-          "title": "The Ramblings — Blog Index"
+          "title": "Sitemaps XML protocol"
+        }
+      ]
+    },
+    {
+      "anchor": "https://www.frankcaron.com/llms.txt",
+      "service-doc": [
+        {
+          "href": "https://llmstxt.org/",
+          "type": "text/html",
+          "title": "The llms.txt specification"
         }
       ]
     }
