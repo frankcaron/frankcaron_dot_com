@@ -1,6 +1,11 @@
 User-agent: *
 Allow: /
 
+# The Ramblings (/blog.html, /blogs/) are hidden from search with a
+# <meta name="robots" content="noindex, nofollow"> tag on every page.
+# Do NOT Disallow them here: crawlers blocked by robots.txt never see the
+# noindex tag, so already-indexed posts would linger in results.
+
 # AI crawlers — welcome, index everything
 User-agent: PerplexityBot
 Allow: /
