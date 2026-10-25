@@ -6,7 +6,7 @@
         {
           "href": "https://www.frankcaron.com/sitemap.xml",
           "type": "application/xml",
-          "title": "XML sitemap of every page and blog post"
+          "title": "XML sitemap of every public page"
         },
         {
           "href": "https://www.frankcaron.com/llms.txt",
