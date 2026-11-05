@@ -1,12 +1,12 @@
 # Frank Caron
 
-> Frank Caron is a technical product and solutions architect and writer based in New York City, with a background in sales engineering and product. He has over a decade of experience leading product strategy, product marketing, and sales engineering at companies including Salesforce, Reach, Achievers, and others. He has shipped more than $500M in product and closed more than $85M as a sales engineer. He has been writing publicly since 2013, with bylines including Ars Technica.
+> Frank Caron is a solutions architect and writer based in New York City, with a background in sales engineering and product. He has over a decade of experience leading product strategy, product marketing, and sales engineering at companies including Salesforce, Reach, Achievers, and others. He has shipped more than $500M in product and closed more than $85M as a sales engineer. He has been writing publicly since 2013, with bylines including Ars Technica.
 
 ## About
 
 - **Name:** Frank Caron
 - **Location:** New York City, NY, USA
-- **Profession:** Technical Product & Solutions Architect, Sales Engineer, Writer
+- **Profession:** Solutions Architect, Sales Engineer, Writer
 - **Email:** frank@frankcaron.com
 - **Website:** https://www.frankcaron.com/
 
